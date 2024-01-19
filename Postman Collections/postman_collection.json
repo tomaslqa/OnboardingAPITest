@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "f19c4bab-eb72-40ac-ae03-f3ed095233f6",
+		"name": "API_test_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetUsers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a8af3a9d-323b-44b2-875d-04f0761fd459",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b22cb7ec-f0b6-4d13-ab7c-8216f960afce",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "4eb3faaf-7903-433d-b66e-9610bc9b815a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}"
+			},
+			"response": []
+		},
+		{
+			"name": "AddUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c699fd7-7016-41d0-bd71-7fec59756b5b",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"let jsonResponse = pm.response.json();\r",
+							"pm.collectionVariables.set(\"id\", jsonResponse.id);\r",
+							"console.log(pm.collectionVariables.get(\"id\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "2115f261-94a0-42f8-b0cd-5d36914b6a6e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"johanna\",\r\n\"email\": \"johannas@mail.com\",\r\n\"password\": \"12345$A\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://reqres.in/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e1bff4c9-8c2a-4147-8eec-477077dcc29f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"updatedAt\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"id": "d14d3a05-f5e8-4d7f-bee2-31a29a18da40",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/{{id}}"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "317b6ea0-a436-4df0-b710-c6e57ab81782",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9dbf7594-b793-48a4-96cf-c6692dd7f4e5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://reqres.in/api/users",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
